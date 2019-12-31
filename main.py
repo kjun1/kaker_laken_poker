@@ -11,22 +11,22 @@ class player:
         self.hand = hand
         self.stack = stack
 
-def stack_checker(ps):
-    for i in ps:
+def stack_checker(players_list):
+    for i in players_list:
         for j in Counter(i.stack).values():
             if j >= 8:
                 return 0
     return -1
 
 
-def dis_card(choose_card,dec_card,turn_player,choosed_player,ps):
+def dis_card(choose_card,dec_card,turn_player,choosed_player,players_list):
     print("0:False")
     print("1:True")
     a = int(input())
     if a ==(choose_card==dec_card):
-        ps[turn_player].stack.append(choose_card)
+        players_list[turn_player].stack.append(choose_card)
     else:
-        ps[choosed_player].stack.append(choose_card)
+        players_list[choosed_player].stack.append(choose_card)
         turn_player == choosed_player
 
 def choose_player(can_choose_player):
@@ -52,7 +52,7 @@ for i in b["card"]:
 import random
 
 p = 4
-ps = [player(i) for i in range(p)]
+players_list = [player(i) for i in range(p)]
 data = []
 for i in cards:
     data.extend([i for j in range(8)])
@@ -60,7 +60,7 @@ for i in cards:
 
 c = 0
 while len(data) > 0:
-    ps[c].hand.append(data.pop(random.randint(0,len(data)-1)))
+    players_list[c].hand.append(data.pop(random.randint(0,len(data)-1)))
     c = (c+1)%p
 
 
@@ -83,7 +83,7 @@ while over == -1:
             choosed_player = can_choose_player[random.randint(0,len(can_choose_player)-1)]
             continue
         else:
-            dis_card(choose_card,dec_card,turn_player,choosed_player,ps)
+            dis_card(choose_card,dec_card,turn_player,choosed_player,players_list)
             can_choose_player = [i for i in range(4) if not(turn_player==i)]
             end = True
-    over = stack_checker(ps)
+    over = stack_checker(players_list)
