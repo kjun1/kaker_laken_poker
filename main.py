@@ -37,6 +37,15 @@ def choose_player(can_choose_player):
             break
     return a
 
+def hand_choosing(player):
+    cards = set(player.hand)
+    while True:
+        print("choose_your_card")
+        for i in cards:
+            print(i.id,i.name)
+        x = int(input())
+        if x in cards:
+            return x
 
 
 import json
